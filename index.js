@@ -49,10 +49,6 @@ Vue.component('product', {
                     Add to cart
                 </button>
                 <button @click="removeFromCart">Remove from cart</button>
-
-                <div class="cart">
-                    <p>Cart ({{ cart }})</p>
-                </div>
             </div>
         </div>
     `,
@@ -75,18 +71,20 @@ Vue.component('product', {
                     id: 2235,
                     color: 'green',
                     image: '/img/vmSocks-green-onWhite.jpg',
-                    quantity: 0
+                    quantity: 2
                 }
-            ],
-            cart: 0
+            ]
         };
     },
     methods: {
         addToCart() {
-            this.cart += 1;
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].id);
         },
         removeFromCart() {
-            this.cart && (this.cart -= 1);
+            this.$emit(
+                'remove-from-cart',
+                this.variants[this.selectedVariant].id
+            );
         },
         updateProduct(index) {
             this.selectedVariant = index;
@@ -125,7 +123,20 @@ Vue.component('productDetails', {
 var app = new Vue({
     el: '#app',
     data: {
+        cart: [],
         details: ['80% cotton', '20% polyester', 'Gender-neutral'],
         premium: true
+    },
+    methods: {
+        updateCart(id) {
+            this.cart.push(id);
+        },
+        removeFromCart(id) {
+            const index = this.cart.indexOf(id);
+
+            if (index !== -1) {
+                this.cart.splice(index, 1);
+            }
+        }
     }
 });
