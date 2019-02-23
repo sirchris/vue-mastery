@@ -11,51 +11,9 @@
 
     <body>
         <div id="app">
-            <div class="product">
-                <div class="product-image">
-                    <img :src="image" />
-                </div>
-
-                <div class="product-info">
-                    <h1 :style="[!inventory && {'text-decoration':'line-through'}]">{{ title }}</h1>
-
-                    <p v-if="inventory>10">In Stock</p>
-                    <p v-else-if="inventory <= 10 && inventory > 0">
-                        Almost sold out!
-                    </p>
-                    <p v-else>Out of Stock</p>
-
-                    <a :href="link" target="_blank">More products like this</a>
-
-                    <p>{{ description }}</p>
-
-                    <ul>
-                        <li v-for="detail in details">{{ detail }}</li>
-                    </ul>
-
-                    Variants:
-                    <div
-                        v-for="(variant, index) in variants"
-                        :key="variant.id"
-                        @mouseover="updateProduct(index)"
-                        class="color-box"
-                        :style="{backgroundColor:variant.color}"
-                    ></div>
-
-                    <button
-                        @click="addToCart"
-                        :disabled="!inventory"
-                        :class="[!inventory && 'disabledButton']"
-                    >
-                        Add to cart
-                    </button>
-                    <button @click="removeFromCart">Remove from cart</button>
-
-                    <div class="cart">
-                        <p>Cart ({{ cart }})</p>
-                    </div>
-                </div>
-            </div>
+            <product :premium="premium" :details="details"></product>
+            <product :premium="premium" :details="details"></product>
+            <product :premium="premium" :details="details"></product>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.7/dist/vue.js"></script>
