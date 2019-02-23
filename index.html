@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="product-info">
-                    <h1 :style="[!inventory && {'text-decoration':'line-through'}]">{{ product }}</h1>
+                    <h1 :style="[!inventory && {'text-decoration':'line-through'}]">{{ title }}</h1>
 
                     <p v-if="inventory>10">In Stock</p>
                     <p v-else-if="inventory <= 10 && inventory > 0">
@@ -35,11 +35,11 @@
 
                     Variants:
                     <div
-                        v-for="variant in variants"
-                        :key="variant.variantId"
-                        @mouseover="updateProduct(variant.variantImage)"
+                        v-for="(variant, index) in variants"
+                        :key="variant.id"
+                        @mouseover="updateProduct(index)"
                         class="color-box"
-                        :style="{backgroundColor:variant.variantColor}"
+                        :style="{backgroundColor:variant.color}"
                     ></div>
 
                     <button
